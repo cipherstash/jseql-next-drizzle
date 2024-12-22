@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jseql demo app 
+
+This project uses the following technologies:
+
+- [Next.js](https://nextjs.org) for the application framework
+- [Clerk](https://clerk.com) for auth
+- [Vercel](https://vercel.com) for hosting
+- [Supabase](https://supabase.com) for database
+- [Drizzle ORM](https://drizzle.org) for database access
+- [CipherStash](https://cipherstash.com) for data encryption
+- [jseql](https://github.com/cipherstash/jseql) for interacting with CipherStash Encrypt
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Second, create a `.env.local` file in the root directory with the following content:
+
+```bash
+# Clerk auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+# Supabase postgres connection string
+POSTGRES_URL=
+
+# CipherStash encryption and access keys
+CS_CLIENT_ID=
+CS_CLIENT_KEY=
+CS_CLIENT_ACCESS_KEY=
+CS_WORKSPACE_ID=
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The database is hosted on Supabase and has the following schema which is defined using the Drizzle ORM:
 
-## Learn More
+```ts
+// Data that is encrypted using jseql is stored as jsonb in postgres
 
-To learn more about Next.js, take a look at the following resources:
+export const users = pgTable("users", {
+	id: serial("id").primaryKey(),
+	name: varchar("name").notNull(),
+	email: jsonb("email").notNull(),
+	role: varchar("role").notNull(),
+});
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> [!NOTE]
+> This example does not include any searchable encrypted fields.
+> If you want to search on encrypted fields, you will need to install EQL.
+> The EQL library ships with custom types that are used to define encrypted fields.
+> See the [EQL documentation](https://github.com/cipherstash/encrypted-query-language) for more information.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### CipherStash and jseql
 
-## Deploy on Vercel
+All the email data is encrypted using jseql and CipherStash.
+The cipherstext is stored in the `email` column of the `users` table.
+The application is configured to only decrypt the data when the user is signed in, otherwise it will display the encrypted data.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Encryption
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+There is a helper script which will insert records into the database:
+
+```bash
+npx tsx src/helpers/insert.ts --name 'user_name' --email 'user_email'
+```
+
+This will insert a record into the database with an encrypted email field.
+
+#### Decryption
+
+To view the decrpytion implementation, see the `getUsers` function in [src/app/page.tsx](src/app/page.tsx).
