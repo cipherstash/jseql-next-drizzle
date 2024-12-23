@@ -16,7 +16,7 @@ export type EncryptedUser = {
   role: string
 }
 
-export async function getUsers(): Promise<EncryptedUser[]> {
+async function getUsers(): Promise<EncryptedUser[]> {
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = await auth()
 
@@ -38,7 +38,8 @@ export async function getUsers(): Promise<EncryptedUser[]> {
       }))
     }
 
-    return results
+    // TODO: fix up types and don't use `any` here.
+    return results as any
   } catch (error) {
     console.error('Failed to fetch users:', error)
     throw new Error('Failed to fetch users.')
