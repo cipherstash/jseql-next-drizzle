@@ -38,7 +38,7 @@ async function getUsers(): Promise<EncryptedUser[]> {
       }))
     }
 
-    // TODO: fix up types and don't use `any` here.
+    // biome-ignore lint/suspicious/noExplicitAny: TODO: fix up types and don't use `any` here.
     return results as any
   } catch (error) {
     console.error('Failed to fetch users:', error)

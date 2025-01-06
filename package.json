@@ -9,7 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@cipherstash/jseql": "^3.0.0",
+		"@cipherstash/jseql": "^3.1.0",
 		"@clerk/nextjs": "^6.9.6",
 		"@radix-ui/react-slot": "^1.1.1",
 		"class-variance-authority": "^0.7.1",
