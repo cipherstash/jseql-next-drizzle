@@ -43,7 +43,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Database
+## Database
 
 The database is hosted on Supabase and has the following schema which is defined using the Drizzle ORM:
 
@@ -64,13 +64,27 @@ export const users = pgTable("users", {
 > The EQL library ships with custom types that are used to define encrypted fields.
 > See the [EQL documentation](https://github.com/cipherstash/encrypted-query-language) for more information.
 
-### CipherStash and jseql
+## @cipherstash/jseql
 
 All the email data is encrypted using jseql and CipherStash.
 The cipherstext is stored in the `email` column of the `users` table.
 The application is configured to only decrypt the data when the user is signed in, otherwise it will display the encrypted data.
 
-#### Encryption
+### Npm package
+
+`@cipherstash/jseql` uses custom Rust bindings in order to perform encryptions and decryptions.
+We leverage the [Neon project](https://neon-rs.dev/) to provide a JavaScript API for these bindings.
+
+In order to use the `@cipherstash/jseql` package, you will need to add the following to your `next.config.js` file:
+
+```js
+const nextConfig = {
+  ...
+  serverExternalPackages: ['@cipherstash/jseql'],
+}
+```
+
+### Encryption
 
 There is a helper script which will insert records into the database:
 
@@ -80,6 +94,6 @@ npx tsx src/helpers/insert.ts --name 'user_name' --email 'user_email'
 
 This will insert a record into the database with an encrypted email field.
 
-#### Decryption
+### Decryption
 
 To view the decrpytion implementation, see the `getUsers` function in [src/app/page.tsx](src/app/page.tsx).
