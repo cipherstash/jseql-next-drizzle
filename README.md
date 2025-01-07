@@ -75,15 +75,6 @@ The application is configured to only decrypt the data when the user is signed i
 `@cipherstash/jseql` uses custom Rust bindings in order to perform encryptions and decryptions.
 We leverage the [Neon project](https://neon-rs.dev/) to provide a JavaScript API for these bindings.
 
-In order to use the `@cipherstash/jseql` package, you will need to add the following to your `next.config.js` file:
-
-```js
-const nextConfig = {
-  ...
-  serverExternalPackages: ['@cipherstash/jseql'],
-}
-```
-
 ### Encryption
 
 There is a helper script which will insert records into the database:
@@ -97,3 +88,30 @@ This will insert a record into the database with an encrypted email field.
 ### Decryption
 
 To view the decrpytion implementation, see the `getUsers` function in [src/app/page.tsx](src/app/page.tsx).
+
+### Next.js
+
+Since `@cipherstash/jseql` is a native Node.js module, you need to opt-out from the Server Components bundling and use native Node.js `require` instead.
+
+#### Using version 15 or later
+
+`next.config.ts` [configuration](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverExternalPackages):
+
+```js
+const nextConfig = {
+  ...
+  serverExternalPackages: ['@cipherstash/jseql'],
+}
+```
+
+#### Using version 14
+
+`next.config.mjs` [configuration](https://nextjs.org/docs/14/app/api-reference/next-config-js/serverComponentsExternalPackages):
+
+```js
+const nextConfig = {
+  ...
+  experimental: {
+    serverComponentsExternalPackages: ['@cipherstash/jseql'],
+  },
+}
