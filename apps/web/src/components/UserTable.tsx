@@ -1,6 +1,6 @@
 'use client'
 
-import type { EncryptedUser } from '@/app/page'
+import type { EncryptedUser } from '../app/page'
 import {
   Table,
   TableBody,
@@ -8,10 +8,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from './ui/table'
 
 export default function UserTable({ users }: { users: EncryptedUser[] }) {
-  console.log('users', users)
   return (
     <div>
       <Table>
@@ -27,7 +26,7 @@ export default function UserTable({ users }: { users: EncryptedUser[] }) {
             <TableRow key={user.id}>
               <TableCell className="font-medium">{user.name}</TableCell>
               <TableCell>
-                <span className="truncate ... max-w-xl">
+                <span className="truncate ... max-w-[300] block">
                   {user.email?.c
                     ? user.email.c
                     : (user.email as unknown as string)}

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ['@jseql-next-drizzle/core'],
   serverExternalPackages: ['@cipherstash/jseql'],
 }
 
