@@ -115,3 +115,16 @@ const nextConfig = {
     serverComponentsExternalPackages: ['@cipherstash/jseql'],
   },
 }
+```
+
+## Package manager
+
+> [!NOTE]
+> At the time of this writing, some Node-API functions are not implemented so this environment may not work with [Bun](https://bun.sh).
+
+See the [.npmrc](.npmrc) in the root of the project which contains the following contents. This is requires when @cipherstash/jseql is a nested dependency of your application:
+
+```txt
+public-hoist-pattern[]=*@cipherstash/jseql*%
+```
+
