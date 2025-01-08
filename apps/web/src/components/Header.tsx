@@ -1,10 +1,5 @@
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  SignOutButton,
-} from '@clerk/nextjs'
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from './ui/button'
 import { Github, KeyIcon } from 'lucide-react'
@@ -28,9 +23,11 @@ export default function Header() {
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center justify-center">
-          <Button variant="link">
-            <Github /> View on Github
-          </Button>
+          <Link href="https://github.com/cipherstash/jseql-next-drizzle">
+            <Button variant="link">
+              <Github /> View on Github
+            </Button>
+          </Link>
           <SignedOut>
             <SignInButton>
               <Button variant="default">
