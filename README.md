@@ -2,6 +2,8 @@
 
 This project uses the following technologies:
 
+- [Turborepo](https://turborepo.org) for monorepo management
+- [pnpm](https://pnpm.io) for package management
 - [Next.js](https://nextjs.org) for the application framework
 - [Clerk](https://clerk.com) for auth
 - [Vercel](https://vercel.com) for hosting
@@ -80,7 +82,7 @@ We leverage the [Neon project](https://neon-rs.dev/) to provide a JavaScript API
 There is a helper script which will insert records into the database:
 
 ```bash
-npx tsx src/helpers/insert.ts --name 'user_name' --email 'user_email'
+pnpm tsx packages/core/helpers/insert.ts --name 'user_name' --email 'user_email' 
 ```
 
 This will insert a record into the database with an encrypted email field.
@@ -125,6 +127,6 @@ const nextConfig = {
 See the [.npmrc](.npmrc) in the root of the project which contains the following contents. This is requires when @cipherstash/jseql is a nested dependency of your application:
 
 ```txt
-public-hoist-pattern[]=*@cipherstash/jseql*%
+public-hoist-pattern[]=*@cipherstash/jseql*
 ```
 
