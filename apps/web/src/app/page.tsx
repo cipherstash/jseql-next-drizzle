@@ -1,8 +1,8 @@
-import Header from '@/components/Header'
-import UserTable from '@/components/UserTable'
-import { users } from '@/db/schema'
-import { db } from '@/db'
-import { eqlClient } from '@/eql'
+import Header from '../components/Header'
+import UserTable from '../components/UserTable'
+import { users } from '@jseql-next-drizzle/core/db/schema'
+import { db } from '@jseql-next-drizzle/core/db'
+import { eqlClient } from '@jseql-next-drizzle/core/eql'
 import { auth } from '@clerk/nextjs/server'
 
 export type EqlPayload = {
