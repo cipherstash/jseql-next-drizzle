@@ -1,6 +1,4 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -10,7 +8,10 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ['@jseql-next-drizzle/core'],
-  serverExternalPackages: ['@cipherstash/jseql'],
+  // serverExternalPackages: ['@cipherstash/jseql'],
+  experimental: {
+    serverComponentsExternalPackages: ['@cipherstash/jseql'],
+  },
 }
 
 export default nextConfig
