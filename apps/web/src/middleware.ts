@@ -2,7 +2,7 @@ import { clerkMiddleware } from '@clerk/nextjs/server'
 import { jseqlClerkMiddleware } from '@cipherstash/nextjs/clerk'
 
 export default clerkMiddleware(async (auth, req) => {
-  // return jseqlClerkMiddleware(auth, req)
+  return jseqlClerkMiddleware(auth, req)
 })
 
 export const config = {

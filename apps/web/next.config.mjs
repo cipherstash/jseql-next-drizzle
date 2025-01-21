@@ -8,10 +8,7 @@ const nextConfig = {
     ],
   },
   transpilePackages: ['@jseql-next-drizzle/core'],
-  // serverExternalPackages: ['@cipherstash/jseql'],
-  experimental: {
-    serverComponentsExternalPackages: ['@cipherstash/jseql'],
-  },
+  serverExternalPackages: ['@cipherstash/jseql'],
 }
 
 export default nextConfig
