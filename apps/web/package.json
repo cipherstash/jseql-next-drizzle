@@ -10,7 +10,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@cipherstash/nextjs": "^0.8.0",
+		"@cipherstash/nextjs": "^0.9.0",
 		"@clerk/nextjs": "^6.9.15",
 		"@jseql-next-drizzle/core": "workspace:*",
 		"@radix-ui/react-slot": "^1.1.1",

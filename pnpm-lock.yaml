@@ -18,8 +18,8 @@ importers:
   apps/web:
     dependencies:
       '@cipherstash/nextjs':
-        specifier: ^0.8.0
-        version: 0.8.0(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)
+        specifier: ^0.9.0
+        version: 0.9.0(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)
       '@clerk/nextjs':
         specifier: ^6.9.15
         version: 6.9.15(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -85,8 +85,8 @@ importers:
   packages/core:
     dependencies:
       '@cipherstash/jseql':
-        specifier: ^3.8.0
-        version: 3.8.0(typescript@5.7.2)
+        specifier: ^3.9.0
+        version: 3.9.0(typescript@5.7.2)
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -197,13 +197,13 @@ packages:
   '@cipherstash/jseql-ffi@0.5.0':
     resolution: {integrity: sha512-eqouBHqdCw1JhUJpr4SmT/vW+eoDRRpwSQKZ5V/+cKC5+eypxDq22aQx1klmLmJUtt2dOsTVQU7Qh8QBuWAaUQ==}
 
-  '@cipherstash/jseql@3.8.0':
-    resolution: {integrity: sha512-6xZz2xEYfw9T8z6i6RGfX9woM306KZUMbqhvKhpGIua+NRNTDPjkLQ7Q/dArmFQxzu5qKFoyzQbjg1zC7QWz8w==}
+  '@cipherstash/jseql@3.9.0':
+    resolution: {integrity: sha512-FDHLpWGChw9Xiae9ZN1vpNvGN0yJ9qenk5AUxp4YLpRPqj/QYu2DxyfZil+aIt0cfCnjX5jv3RCMiYFvJ0kzbA==}
     peerDependencies:
       typescript: ^5.0.0
 
-  '@cipherstash/nextjs@0.8.0':
-    resolution: {integrity: sha512-i0WjABs6ax7Is6bvAezFvsBltWt77e9ld9S/EYm5qKWQzjz0fKv3lvdWx4R6D82cmkBBQXGcpprTJFRloU+t6A==}
+  '@cipherstash/nextjs@0.9.0':
+    resolution: {integrity: sha512-fIMxpso3kNsjJksjD4z4B4ZZBE2kRpEc2SmzQZH8PWdGPlGCFBnHMRhEPYvtxBW+tHiOjxGMgMo2tyUXROm09g==}
     peerDependencies:
       next: ^14 || ^15
       typescript: ^5.0.0
@@ -1729,14 +1729,14 @@ snapshots:
       '@cipherstash/jseql-ffi-linux-x64-gnu': 0.5.0
       '@cipherstash/jseql-ffi-win32-x64-msvc': 0.5.0
 
-  '@cipherstash/jseql@3.8.0(typescript@5.7.2)':
+  '@cipherstash/jseql@3.9.0(typescript@5.7.2)':
     dependencies:
       '@cipherstash/jseql-ffi': 0.5.0
       typescript: 5.7.2
     optionalDependencies:
       '@rollup/rollup-linux-x64-gnu': 4.24.0
 
-  '@cipherstash/nextjs@0.8.0(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)':
+  '@cipherstash/nextjs@0.9.0(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)':
     dependencies:
       next: 15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typescript: 5.7.2
