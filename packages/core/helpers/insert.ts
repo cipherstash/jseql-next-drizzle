@@ -4,6 +4,13 @@ import { getTableName } from 'drizzle-orm'
 import { db } from '../db'
 import { users } from '../db/schema'
 import { eqlClient } from '../eql'
+import { LockContext } from '@cipherstash/jseql/identify'
+
+// You must create a CTS token and set the accessToken and expiry in order to use this helper function
+const cts_token = {
+  accessToken: '',
+  expiry: 0,
+}
 
 const getUser = () => {
   const { values } = parseArgs({
@@ -33,10 +40,17 @@ const main = async () => {
     throw new Error('Email and name are required')
   }
 
+  const lockContext = new LockContext({
+    ctsToken: cts_token,
+  })
+
   const encryptedEmail = await eqlClient.encrypt(email, {
     column: users.email.name,
     table: getTableName(users),
+    lockContext,
   })
+
+  console.log('[INFO] Encrypted email:', encryptedEmail)
 
   const sql = db.insert(users).values({
     name: name,

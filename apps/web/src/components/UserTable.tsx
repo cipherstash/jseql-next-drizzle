@@ -27,9 +27,7 @@ export default function UserTable({ users }: { users: EncryptedUser[] }) {
               <TableCell className="font-medium">{user.name}</TableCell>
               <TableCell>
                 <span className="truncate ... max-w-[300px] block">
-                  {user.email?.c
-                    ? user.email.c
-                    : (user.email as unknown as string)}
+                  {user.email}
                 </span>
               </TableCell>
               <TableCell>{user.role}</TableCell>
