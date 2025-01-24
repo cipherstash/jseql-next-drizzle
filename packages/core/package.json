@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cipherstash/jseql": "^3.9.0",
+    "@cipherstash/jseql": "^4.0.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.2",
     "postgres": "^3.4.5"

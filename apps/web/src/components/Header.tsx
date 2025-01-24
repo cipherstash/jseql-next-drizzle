@@ -1,6 +1,15 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+
 import { Button } from './ui/button'
 import { Github, KeyIcon } from 'lucide-react'
 
@@ -20,6 +29,18 @@ export default function Header() {
         </div>
         <span className="text-4xl font-extralight text-gray-200">/</span>
         <h1 className="text-2xl font-mono">jseql</h1>
+        <span className="text-4xl font-extralight text-gray-200">/</span>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Users</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/add-user">Add a user</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center justify-center">
