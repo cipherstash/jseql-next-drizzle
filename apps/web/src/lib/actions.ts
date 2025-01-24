@@ -6,8 +6,15 @@ import { eqlClient } from '@jseql-next-drizzle/core/eql'
 import { getLockContext } from '@jseql-next-drizzle/core/eql'
 import { getCtsToken } from '@cipherstash/nextjs'
 import { revalidatePath } from 'next/cache'
+import { auth } from '@clerk/nextjs/server'
 
 export async function addUser(formData: FormData) {
+  const { userId } = await auth()
+
+  if (!userId) {
+    return { error: 'You must be signed in to add a user.' }
+  }
+
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const role = formData.get('role') as string
