@@ -3,7 +3,7 @@ import UserTable from '../components/UserTable'
 import { users } from '@jseql-next-drizzle/core/db/schema'
 import { db } from '@jseql-next-drizzle/core/db'
 import { eqlClient, getLockContext } from '@jseql-next-drizzle/core/eql'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { getCtsToken } from '@cipherstash/nextjs'
 
 export type EqlPayload = {
@@ -14,60 +14,76 @@ export type EncryptedUser = {
   id: number
   name: string
   email: string | null
+  authorized: boolean
   role: string
 }
 
 async function getUsers(): Promise<EncryptedUser[]> {
   const { userId } = await auth()
-  const cts_token = await getCtsToken()
-  const lockContext = getLockContext(cts_token)
+  const token = await getCtsToken()
+  const results = await db.select().from(users).limit(500)
 
-  try {
-    const results = await db.select().from(users).limit(500)
+  if (userId && token.success) {
+    const dataToDecrypt = results.map((row) => {
+      return {
+        id: row.id,
+        c: (row.email as { c: string }).c,
+      }
+    })
 
-    if (userId) {
-      const dataToDecrypt = results.map((row) => {
-        return {
-          id: row.id,
-          c: (row.email as { c: string }).c,
-        }
-      })
+    const cts_token = token.ctsToken
+    const lockContext = getLockContext(cts_token)
 
-      const data = await Promise.all(
-        results.map(
-          async (row) =>
-            await eqlClient.decrypt(row.email as { c: string }, {
-              lockContext,
-            }),
-        ),
-      )
+    const promises = results.map(
+      async (row) =>
+        await eqlClient
+          .decrypt(row.email as { c: string })
+          .withLockContext(lockContext),
+    )
 
-      return results.map((row, index) => ({
-        ...row,
-        email: data[index] || '',
-      }))
-    }
+    const data = (await Promise.allSettled(promises)) as PromiseSettledResult<
+      string | null
+    >[]
 
-    return results.map((row) => ({
-      id: row.id,
-      name: row.name,
-      email: (row.email as { c: string })?.c,
-      role: row.role,
+    return results.map((row, index) => ({
+      ...row,
+      authorized: data[index].status === 'fulfilled',
+      email:
+        data[index].status === 'fulfilled'
+          ? data[index].value
+          : (row.email as { c: string }).c,
     }))
-  } catch (error) {
-    console.error('Failed to fetch users:', error)
-    throw new Error('Failed to fetch users.')
   }
+
+  return results.map((row) => ({
+    id: row.id,
+    name: row.name,
+    authorized: false,
+    email: (row.email as { c: string })?.c,
+    role: row.role,
+  }))
 }
 
 export default async function Home() {
   const users = await getUsers()
+  const user = await currentUser()
 
   return (
     <main className="min-h-screen flex flex-col">
       <Header />
       <div className="flex-grow px-6 py-8">
-        <UserTable users={users} />
+        <div className="flex items-center align-center gap-6 mb-6">
+          <h2 className="text-2xl font-bold">Users</h2>
+          <span className="text-xs text-gray-500 max-w-[450px]">
+            The email address of each user was encrypted with CipherStash and{' '}
+            <b>locked</b> to the individual who created the user. Only that
+            individual will be able to decrypt the email.
+          </span>
+        </div>
+        <UserTable
+          users={users}
+          email={user?.primaryEmailAddress?.emailAddress}
+        />
       </div>
     </main>
   )

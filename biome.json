@@ -14,5 +14,12 @@
       "quoteStyle": "single",
       "semicolons": "asNeeded"
     }
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noForEach": "off"
+      }
+    }
   }
 }
