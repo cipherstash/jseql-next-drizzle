@@ -11,7 +11,7 @@
 	},
 	"dependencies": {
 		"@cipherstash/nextjs": "^1.1.0",
-		"@clerk/nextjs": "5.7.5",
+		"@clerk/nextjs": "6.9.15",
 		"@jseql-next-drizzle/core": "workspace:*",
 		"@radix-ui/react-label": "^2.1.1",
 		"@radix-ui/react-select": "^2.1.4",
