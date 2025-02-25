@@ -1,0 +1,23 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild --bundle --platform=node --outfile=dist/index.js --packages=external src/index.ts",
+    "sst:deploy": "sst deploy",
+    "sst:dev": "sst dev",
+    "sst:start": "sst start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jseql-next-drizzle/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.147",
+    "esbuild": "0.25.0",
+    "sst": "^3.9.10"
+  }
+}
